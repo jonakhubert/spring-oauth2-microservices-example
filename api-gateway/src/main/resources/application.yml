@@ -1,6 +1,13 @@
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: resource-server # unique identifier for the route
+          uri: http://resource-server:8081 # destination that this route forwards requests to
+          predicates:
+            - Path=/api/resource/** # requests matching this path will be routed to this resource
 
 server:
   port: 8080
