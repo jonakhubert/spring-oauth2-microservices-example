@@ -11,6 +11,8 @@ services:
       - resource-server
     networks:
       - microservices-network
+    env_file:
+      - /.env
 
   resource-server:
     container_name: resource-server
@@ -22,6 +24,8 @@ services:
       - "8082:8082"
     networks:
       - microservices-network
+    env_file:
+      - /.env
 
   postgres:
     image: postgres:15.6
@@ -34,6 +38,8 @@ services:
       POSTGRES_PASSWORD: password
     networks:
       - microservices-network
+    env_file:
+      - /.env
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -61,6 +67,8 @@ services:
       - "7080:7080"
     networks:
       - microservices-network
+    env_file:
+      - /.env
 
 networks:
   microservices-network:
