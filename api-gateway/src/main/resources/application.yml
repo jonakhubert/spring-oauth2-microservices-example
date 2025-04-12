@@ -1,14 +1,14 @@
 server:
-  port: 8081
+  port: ${API_GATEWAY_PORT}
 
 spring:
   application:
-    name: api-gateway
+    name: ${API_GATEWAY_NAME}
   cloud:
     gateway:
       routes:
         - id: resource-server # unique identifier for the route
-          uri: http://resource-server:8082 # destination that this route forwards requests to
+          uri: ${API_GATEWAY_RESOURCE_URI} # destination that this route forwards requests to
           predicates:
             - Path=/api/resource/** # requests matching this path will be routed to this resource
           filters:
@@ -18,12 +18,12 @@ spring:
       client:
         registration:
           keycloak:
-            provider: my-keycloak
-            client-id: keycloak-auth
-            client-secret: d6ShCxEUgwEbQVSYhnfXPDQVtdxQLNJH
-            authorization-grant-type: authorization_code
-            redirect-uri: http://api-gateway:8081/login/oauth2/code/{registrationId}
-            scope: openid
+            provider: ${API_GATEWAY_OAUTH2_CLIENT_PROVIDER}
+            client-id: ${API_GATEWAY_OAUTH2_CLIENT_ID}
+            client-secret: ${API_GATEWAY_OAUTH2_CLIENT_SECRET}
+            authorization-grant-type: ${API_GATEWAY_OAUTH2_GRANT_TYPE}
+            redirect-uri: ${API_GATEWAY_OAUTH2_REDIRECT_URI}
+            scope: ${API_GATEWAY_OAUTH2_SCOPE}
         provider:
           my-keycloak:
-            issuer-uri: http://keycloak-auth:7080/realms/my_realm
+            issuer-uri: ${API_GATEWAY_OAUTH2_ISSUER_URI}

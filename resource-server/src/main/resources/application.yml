@@ -1,11 +1,11 @@
 server:
-  port: 8082
+  port: ${RESOURCE_SERVER_PORT}
 
 spring:
   application:
-    name: resource-server
+    name: ${RESOURCE_SERVER_NAME}
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak-auth:7080/realms/my_realm
+          issuer-uri: ${RESOURCE_SERVER_OAUTH2_ISSUER_URI}
